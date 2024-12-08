@@ -13,27 +13,29 @@ namespace Healthcare_API_Client
     public partial class PatientMain : Form
     {
         private string id;
-        public PatientMain(string id)
+        private string token;
+        public PatientMain(string id, string token)
         {
             InitializeComponent();
             this.id = id;
+            this.token = token;
         }
 
         private void ProvidersBtn_Click(object sender, EventArgs e)
         {
-            ProvidersForm providersForm = new ProvidersForm(id);
+            ProvidersForm providersForm = new ProvidersForm(id, token);
             providersForm.Show();
         }
 
         private void ProfileBtn_Click(object sender, EventArgs e)
         {
-            ProfileForm profileForm = new ProfileForm(id);
+            ProfileForm profileForm = new ProfileForm(id, token);
             profileForm.Show();
         }
 
         private void RecordsBtn_Click(object sender, EventArgs e)
         {
-            RecordsForm recordsForm = new RecordsForm(id);
+            RecordsForm recordsForm = new RecordsForm(id, token);
             recordsForm.Show();
         }
     }

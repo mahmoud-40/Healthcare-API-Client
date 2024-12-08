@@ -13,12 +13,15 @@ namespace Healthcare_API_Client
     public partial class ProvidersForm : Form
     {
         private string _id;
-        public ProvidersForm(string id)
+        private string ProviderId;
+        private string token;
+        public ProvidersForm(string id, string token)
         {
             InitializeComponent();
+            this._id = id;
+            this.token = token;
             SetupListView();
             Load += ProvidersForm_Load;
-            this._id = id;
         }
 
         private async void ProvidersForm_Load(object sender, EventArgs e)
@@ -72,7 +75,6 @@ namespace Healthcare_API_Client
 
         private void SetupListView()
         {
-            // Define columns for ListView
             listViewProviders.Columns.Add("Name", 150, HorizontalAlignment.Left);
             listViewProviders.Columns.Add("Email", 100, HorizontalAlignment.Left);
             listViewProviders.Columns.Add("MemberSince", 150, HorizontalAlignment.Left);
@@ -90,7 +92,13 @@ namespace Healthcare_API_Client
                 var selectedItem = listViewProviders.SelectedItems[0];
                 var selectedProvider = (Provider)selectedItem.Tag;
 
-                MessageBox.Show($"You selected {selectedProvider.Name}. Proceeding...");
+                //MessageBox.Show($"You selected {selectedProvider.Name}. Proceeding...");
+
+                ProviderId = selectedProvider.Id;
+
+                DoctorsForm doctorsForm = new DoctorsForm(_id, ProviderId, token);
+
+                doctorsForm.Show();
             }
             else
             {

@@ -12,7 +12,7 @@ namespace Healthcare_API_Client
 {
     public partial class RecordsForm : Form
     {
-        public RecordsForm(string id)
+        public RecordsForm(string id, string token)
         {
             InitializeComponent();
         }

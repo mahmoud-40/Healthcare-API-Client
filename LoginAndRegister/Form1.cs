@@ -7,6 +7,7 @@ namespace Healthcare_API_Client
 {
     public partial class MainForm : Form
     {
+        private string _token;
         public MainForm()
         {
             InitializeComponent();
@@ -73,15 +74,15 @@ namespace Healthcare_API_Client
                         }
                         else if (role == "Patient" && !string.IsNullOrEmpty(id))
                         {
-                            PatientMain providerFunctionsForm = new PatientMain(id);
+                            PatientMain providerFunctionsForm = new PatientMain(id, loginResp.Token);
                             providerFunctionsForm.Show();
                             this.Hide(); 
                         }
                         else
                         {
                             MessageBox.Show("Admin");
-                            PatientMain providerFunctionsForm = new PatientMain(id);
-                            providerFunctionsForm.Show();
+                            //PatientMain providerFunctionsForm = new PatientMain(id);
+                            //providerFunctionsForm.Show();
                             this.Hide();
                         }
                     }

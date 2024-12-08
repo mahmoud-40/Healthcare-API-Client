@@ -16,5 +16,10 @@ namespace Healthcare_API_Client
         {
             InitializeComponent();
         }
+
+        private void ProfileForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

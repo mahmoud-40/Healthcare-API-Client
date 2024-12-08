@@ -12,27 +12,7 @@ namespace Healthcare_API_Client
             InitializeComponent();
         }
 
-<<<<<<< HEAD
 
-        private (string? Id, string? Role) ExtractClaimsFromToken(string token)
-       {
-        var handler = new JwtSecurityTokenHandler();
-        if (!handler.CanReadToken(token))
-        {
-            throw new ArgumentException("Invalid JWT token");
-        }
-
-        var jwtToken = handler.ReadJwtToken(token);
-
-         // Extract claims
-           string? id = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
-           string? role = jwtToken.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
-
-        return (id,role);
-         }
-
-     private async void LoginBtn_Click(object sender, EventArgs e)
-=======
         private (string? Id, string? Role) ExtractClaimsFromToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -43,14 +23,16 @@ namespace Healthcare_API_Client
 
             var jwtToken = handler.ReadJwtToken(token);
 
+            // Extract claims
             string? id = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
             string? role = jwtToken.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
 
             return (id, role);
         }
 
+
+
         private async void LoginBtn_Click(object sender, EventArgs e)
->>>>>>> origin/master
         {
             string username = UserNameTxt.Text.Trim();
             string password = PasswordTxt.Text.Trim();
@@ -65,14 +47,11 @@ namespace Healthcare_API_Client
             {
                 var loginData = new { userName = username, password = password };
 
-<<<<<<< HEAD
-          
-=======
 
->>>>>>> origin/master
+
                 string jsonData = JsonConvert.SerializeObject(loginData);
 
-                using(HttpClient client = new HttpClient())
+                using (HttpClient client = new HttpClient())
                 {
                     string apiUrl = "https://localhost:7024/api/Account/Login";
 
@@ -83,45 +62,31 @@ namespace Healthcare_API_Client
                     if (response.IsSuccessStatusCode)
                     {
                         string result = await response.Content.ReadAsStringAsync();
-<<<<<<< HEAD
                         // Deserialize response to get the token
-                        var loginResp = JsonConvert.DeserializeObject<LoginResponse>(result);
 
-                        // Extract id and role from token
-                        var (id, role) = ExtractClaimsFromToken(loginResp.Token);
 
                         // Check role and navigate to the next form
-=======
+
                         var loginResp = JsonConvert.DeserializeObject<LoginResponse>(result);
 
                         var (id, role) = ExtractClaimsFromToken(loginResp.Token);
 
->>>>>>> origin/master
                         if (role == "Provider" && !string.IsNullOrEmpty(id))
                         {
                             MessageBox.Show("Login successful");
 
                             // Pass id to the next form
-<<<<<<< HEAD
                             ProviderFunctions providerFunctionsForm = new ProviderFunctions(id);
                             providerFunctionsForm.Show();
                             this.Hide(); // Hide the login form
 
                         }
-                        else
-                        {
-                            MessageBox.Show("Unauthorized: This login is not for providers.");
-=======
-                            //ProviderFunctions providerFunctionsForm = new ProviderFunctions(id);
-                            //providerFunctionsForm.Show();
-                            //this.Hide(); // Hide the login form
 
-                        }
                         else if (role == "Patient" && !string.IsNullOrEmpty(id))
                         {
                             PatientMain providerFunctionsForm = new PatientMain(id);
                             providerFunctionsForm.Show();
-                            this.Hide(); 
+                            this.Hide();
                         }
                         else
                         {
@@ -129,22 +94,20 @@ namespace Healthcare_API_Client
                             PatientMain providerFunctionsForm = new PatientMain(id);
                             providerFunctionsForm.Show();
                             this.Hide();
->>>>>>> origin/master
                         }
                     }
+
                     else
                     {
                         MessageBox.Show("Login failed: " + response.StatusCode);
                     }
-<<<<<<< HEAD
-                    }
-              }
-            
-=======
                 }
-            }
+            
 
->>>>>>> origin/master
+
+      
+             }
+
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred: " + ex.Message);

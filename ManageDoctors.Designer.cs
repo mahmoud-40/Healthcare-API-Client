@@ -33,9 +33,9 @@
             // 
             // listViewDoctors
             // 
-            listViewDoctors.Location = new Point(100, 45);
+            listViewDoctors.Location = new Point(23, 43);
             listViewDoctors.Name = "listViewDoctors";
-            listViewDoctors.Size = new Size(602, 360);
+            listViewDoctors.Size = new Size(525, 360);
             listViewDoctors.TabIndex = 0;
             listViewDoctors.UseCompatibleStateImageBehavior = false;
             // 
@@ -43,7 +43,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(958, 523);
             Controls.Add(listViewDoctors);
             Name = "ManageDoctors";
             Text = "ManageDoctors";

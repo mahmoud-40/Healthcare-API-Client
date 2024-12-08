@@ -15,14 +15,15 @@ namespace Healthcare_API_Client
 {
     public partial class ManageDoctors : Form
     {
-        private string providerId;  // Assuming providerId is passed to this form
+        private string id; // Assuming providerId is passed to this form
 
-        public ManageDoctors(string providerId)
+        public ManageDoctors(string id)
         {
 
             InitializeComponent();
-            this.providerId = providerId;
             SetupListView();
+            Load += ManageDoctorsForm_Load;
+            this.id = id;
 
         }
 
@@ -41,13 +42,13 @@ namespace Healthcare_API_Client
         }
 
         // Load doctors from the API
-        private async Task LoadDoctors(string providerId)
+        private async Task LoadDoctors(string id)
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    string url = $"https://localhost:7024/api/providers/{providerId}/doctors";  // Replace with your actual API URL
+                    string url = $"https://localhost:7024/api/providers/{id}/doctors";  // Replace with your actual API URL
                     HttpResponseMessage response = await client.GetAsync(url);
 
                     if (response.IsSuccessStatusCode)
@@ -86,16 +87,15 @@ namespace Healthcare_API_Client
         // Handle the form load event to fetch doctors
         private async void ManageDoctorsForm_Load(object sender, EventArgs e)
         {
-            await LoadDoctors(providerId); // Fetch and display doctors based on providerId
+            await LoadDoctors(id); // Fetch and display doctors based on providerId
         }
 
         // Alternatively, fetch doctors when the button is clicked
         private async void btnShowDoctors_Click(object sender, EventArgs e)
         {
-            await LoadDoctors(providerId); // Fetch and display doctors based on providerId
+            await LoadDoctors(id); // Fetch and display doctors based on providerId
         }
 
-     
-    }
+        
 
-}
+        } }

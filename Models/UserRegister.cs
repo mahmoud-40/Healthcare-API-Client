@@ -28,7 +28,7 @@ namespace Healthcare_API_Client.Models
         Female = 2
     }
 
-    enum Shift
+    public enum Shift
     {
         Morning = 1,
         Evening = 2,

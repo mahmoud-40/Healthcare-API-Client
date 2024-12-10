@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Healthcare_API_Client.Models;
+using Healthcare_API_Client.Models.Profile;
+using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Healthcare_API_Client.Models;
-using System.Xml.Linq;
-using Healthcare_API_Client.Models.Profile;
-using Newtonsoft.Json;
 
 namespace Healthcare_API_Client
 {
@@ -17,21 +16,27 @@ namespace Healthcare_API_Client
 
         public ProfileForm(string id, string token)
         {
+            InitializeComponent();
             _id = id;
             _token = token;
-            InitializeComponent();
-            LoadProfileData();
+            Load += ProfileForm_Load;
         }
 
-        private async void LoadProfileData()
+        private async void ProfileForm_Load(object sender, EventArgs e)
+        {
+            await LoadProfile();
+        }
+
+        private async Task LoadProfile()
         {
             try
             {
-                string apiUrl = $"https://localhost:7024/api/Patients/{_id}/profile";
+                string apiUrl = $"https://localhost:7024/api/Patients/profile";
 
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
@@ -41,13 +46,20 @@ namespace Healthcare_API_Client
 
                         if (profile != null)
                         {
-                            textBoxName.Text = profile.Name;
-                            textBoxAddress.Text = profile.Address;
-                            textBoxEmail.Text = profile.Email;
-                            textBoxPhoneNumber.Text = profile.PhoneNumber;
-                            comboBoxGender.Text = profile.Gender.ToString();
-                            labelMemberSinceValue.Text = profile.MemberSince.ToString(@"d\:hh\:mm");
-                            labelAgeValue.Text = profile.Age.ToString();
+                            txtName.Text = profile.Name ?? string.Empty;
+                            txtEmail.Text = profile.Email ?? string.Empty;
+                            txtAddress.Text = profile.Address ?? string.Empty;
+                            txtPhoneNumber.Text = profile.PhoneNumber ?? string.Empty;
+                            labelGenderValue.Text = profile.Gender.ToString();
+
+                            if (profile.BirthDay != DateOnly.MinValue)
+                            {
+                                datePickerBirthDay.Value = profile.BirthDay.ToDateTime(TimeOnly.MinValue);
+                            }
+                            else
+                            {
+                                datePickerBirthDay.Value = DateTime.Now;
+                            }
                         }
                     }
                     else
@@ -62,34 +74,40 @@ namespace Healthcare_API_Client
             }
         }
 
-        private async void btnSave_Click(object? sender, EventArgs e)
+
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            await UpdateProfile();
+        }
+
+        private async Task UpdateProfile()
         {
             try
             {
-                var updatedProfile = new
+                string apiUrl = $"https://localhost:7024/api/Patients/profile";
+
+                var updatedProfile = new PatientProfile
                 {
-                    name = textBoxName.Text,
-                    email = textBoxEmail.Text,
-                    birthDay = DateTime.Now.AddYears(-int.Parse(labelAgeValue.Text)).ToString("yyyy-MM-dd"), // Calculate birthdate from age
-                    address = textBoxAddress.Text,
-                    gender = (int)Enum.Parse(typeof(Gender), comboBoxGender.Text),  
-                    phoneNumber = textBoxPhoneNumber.Text
+                    Name = txtName.Text,
+                    Email = txtEmail.Text,
+                    Address = txtAddress.Text,
+                    PhoneNumber = txtPhoneNumber.Text,
+                    Gender = Enum.Parse<Gender>(labelGenderValue.Text),
+                    BirthDay = DateOnly.FromDateTime(datePickerBirthDay.Value) 
                 };
 
-                string apiUrl = $"https://localhost:7024/api/Patients/profile";
+                string jsonRequest = JsonConvert.SerializeObject(updatedProfile);
 
                 using (HttpClient client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                    string jsonContent = JsonConvert.SerializeObject(updatedProfile);
-                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
+                    StringContent content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await client.PutAsync(apiUrl, content);
 
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("Profile updated successfully!");
-                        Close();
                     }
                     else
                     {
@@ -99,12 +117,12 @@ namespace Healthcare_API_Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred while saving the profile: {ex.Message}");
+                MessageBox.Show($"An error occurred while updating the profile: {ex.Message}");
             }
         }
 
 
-        private void btnCancel_Click(object? sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DoctorsForm));
             listViewDoctors = new ListView();
             confirmBtn = new Button();
             SuspendLayout();
@@ -36,18 +37,19 @@
             // 
             listViewDoctors.FullRowSelect = true;
             listViewDoctors.GridLines = true;
-            listViewDoctors.Location = new Point(12, 44);
+            listViewDoctors.Location = new Point(12, 26);
             listViewDoctors.Name = "listViewDoctors";
-            listViewDoctors.Size = new Size(869, 300);
+            listViewDoctors.Size = new Size(869, 336);
             listViewDoctors.TabIndex = 2;
             listViewDoctors.UseCompatibleStateImageBehavior = false;
             listViewDoctors.View = View.Details;
             // 
             // confirmBtn
             // 
-            confirmBtn.Location = new Point(369, 378);
+            confirmBtn.Font = new Font("Unispace", 13.7999992F, FontStyle.Bold);
+            confirmBtn.Location = new Point(383, 378);
             confirmBtn.Name = "confirmBtn";
-            confirmBtn.Size = new Size(120, 30);
+            confirmBtn.Size = new Size(120, 60);
             confirmBtn.TabIndex = 3;
             confirmBtn.Text = "Confirm";
             confirmBtn.Click += confirmBtn_Click;
@@ -56,11 +58,14 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(894, 450);
             Controls.Add(listViewDoctors);
             Controls.Add(confirmBtn);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "DoctorsForm";
-            Text = "DoctorsForm";
+            Text = "Select a Doctor";
             ResumeLayout(false);
         }
 

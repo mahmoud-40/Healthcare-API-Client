@@ -30,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecordsForm));
             listViewRecords = new ListView();
             closeButton = new Button();
             SuspendLayout();
@@ -45,10 +46,12 @@
             // 
             // closeButton
             // 
-            closeButton.Location = new Point(568, 433);
+            closeButton.FlatStyle = FlatStyle.System;
+            closeButton.Font = new Font("Unispace", 13.7999992F, FontStyle.Bold);
+            closeButton.Location = new Point(567, 433);
             closeButton.Margin = new Padding(3, 4, 3, 4);
             closeButton.Name = "closeButton";
-            closeButton.Size = new Size(86, 31);
+            closeButton.Size = new Size(112, 45);
             closeButton.TabIndex = 1;
             closeButton.Text = "Close";
             closeButton.UseVisualStyleBackColor = true;
@@ -58,10 +61,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1304, 481);
             Controls.Add(closeButton);
             Controls.Add(listViewRecords);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -69,8 +74,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Patient Medical Records";
             ResumeLayout(false);
-
-            SetupListView();
         }
 
         #endregion

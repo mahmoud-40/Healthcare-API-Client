@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProvidersForm));
             listViewProviders = new ListView();
             confirmBtn = new Button();
             SuspendLayout();
@@ -45,18 +46,24 @@
             // 
             // confirmBtn
             // 
-            confirmBtn.Location = new Point(200, 340);
+            confirmBtn.FlatStyle = FlatStyle.System;
+            confirmBtn.Font = new Font("Unispace", 13.7999992F, FontStyle.Bold);
+            confirmBtn.Location = new Point(403, 336);
             confirmBtn.Name = "confirmBtn";
-            confirmBtn.Size = new Size(120, 30);
+            confirmBtn.Size = new Size(120, 52);
             confirmBtn.TabIndex = 1;
             confirmBtn.Text = "Confirm";
             confirmBtn.Click += ConfirmBtn_Click;
             // 
             // ProvidersForm
             // 
+            AutoScaleMode = AutoScaleMode.Inherit;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(928, 400);
             Controls.Add(listViewProviders);
             Controls.Add(confirmBtn);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ProvidersForm";
             Text = "Select a Provider";
             ResumeLayout(false);

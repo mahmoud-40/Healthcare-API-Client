@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatientMain));
             ProvidersBtn = new Button();
             ProfileBtn = new Button();
             RecordsBtn = new Button();
@@ -35,17 +36,21 @@
             // 
             // ProvidersBtn
             // 
-            ProvidersBtn.Location = new Point(125, 66);
+            ProvidersBtn.BackColor = SystemColors.ControlDark;
+            ProvidersBtn.FlatStyle = FlatStyle.System;
+            ProvidersBtn.Font = new Font("Unispace", 13.7999992F, FontStyle.Bold);
+            ProvidersBtn.Location = new Point(125, 80);
             ProvidersBtn.Name = "ProvidersBtn";
             ProvidersBtn.Size = new Size(344, 49);
             ProvidersBtn.TabIndex = 0;
             ProvidersBtn.Text = "Providers";
-            ProvidersBtn.UseVisualStyleBackColor = true;
+            ProvidersBtn.UseVisualStyleBackColor = false;
             ProvidersBtn.Click += ProvidersBtn_Click;
             // 
             // ProfileBtn
             // 
-            ProfileBtn.Location = new Point(125, 161);
+            ProfileBtn.Font = new Font("Unispace", 13.7999992F, FontStyle.Bold);
+            ProfileBtn.Location = new Point(125, 174);
             ProfileBtn.Name = "ProfileBtn";
             ProfileBtn.Size = new Size(344, 47);
             ProfileBtn.TabIndex = 1;
@@ -55,6 +60,7 @@
             // 
             // RecordsBtn
             // 
+            RecordsBtn.Font = new Font("Unispace", 13.7999992F, FontStyle.Bold);
             RecordsBtn.Location = new Point(125, 259);
             RecordsBtn.Name = "RecordsBtn";
             RecordsBtn.Size = new Size(344, 47);
@@ -67,12 +73,16 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(618, 367);
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(618, 359);
             Controls.Add(RecordsBtn);
             Controls.Add(ProfileBtn);
             Controls.Add(ProvidersBtn);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "PatientMain";
-            Text = "PatientMain";
+            Text = "Patient Main";
             ResumeLayout(false);
         }
 
